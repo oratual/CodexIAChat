@@ -137,4 +137,3 @@ Required fix:
 ## Conclusion
 
 The project does not need to lose functionality. The safe design is a two-layer model: the bus enables coordination, but workers enforce local execution boundaries mechanically before and after Codex runs.
-

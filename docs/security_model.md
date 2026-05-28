@@ -131,4 +131,3 @@ The first runtime implementation is not acceptable until these tests pass:
 - HTTP API, if enabled, rejects unauthenticated state-changing requests.
 - Lock fencing rejects stale results.
 - Security scan confirms no secrets in repo, task fixtures, logs, or release artifacts.
-
