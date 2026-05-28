@@ -3,8 +3,8 @@
 These must be answered before implementing runtime code.
 
 1. Which Linux host will run the central AgentBus node?
-2. Will NATS run inside the existing Krank/autojob infrastructure or a separate stack?
-3. Which repository will own shared infrastructure integration if Krank/autojob is involved?
+2. Will NATS run inside an existing shared infrastructure stack or a separate stack?
+3. Which repository will own shared infrastructure integration if an existing platform is involved?
 4. What exact Codex CLI version and command contract will be used for cold execution?
 5. What authentication and authorization model should protect task publication?
 6. What filesystem paths are canonical on Windows, macOS, and Linux?

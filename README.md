@@ -1,5 +1,7 @@
 # CodexIAChat
 
+[![Security](https://github.com/oratual/CodexIAChat/actions/workflows/security.yml/badge.svg)](https://github.com/oratual/CodexIAChat/actions/workflows/security.yml)
+
 CodexIAChat is a documentation-first project for building an AgentBus-style coordination system between Codex instances on Windows, macOS, and Linux.
 
 The imported source specification is:
@@ -16,6 +18,15 @@ Current status: project documentation has been initialized. No runtime service, 
 - `docs/current_architecture.md`: target architecture summary.
 - `docs/open_questions.md`: unresolved questions that must be answered before implementation.
 - `docs/api/current_contracts.md`: current message and task/result contract references.
+- `docs/publication_checklist.md`: public-release confidentiality checklist.
+
+## Open Source
+
+- License: MIT.
+- Security policy: `SECURITY.md`.
+- Contribution guide: `CONTRIBUTING.md`.
+- Code of conduct: `CODE_OF_CONDUCT.md`.
+- Support notes: `SUPPORT.md`.
 
 ## Implementation Discipline
 

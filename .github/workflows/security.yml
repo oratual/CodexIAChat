@@ -1,0 +1,34 @@
+name: Security
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install detect-secrets
+        run: python -m pip install detect-secrets==1.5.0
+
+      - name: Run detect-secrets
+        run: python -m detect_secrets scan --all-files .
+
+      - name: Search for obvious private markers
+        shell: bash
+        run: |
+          ! grep -RInE --exclude='security.yml' '(gho_|github_pat|sk-[A-Za-z0-9]|AKIA[0-9A-Z]{16}|BEGIN .*PRIVATE|Tailscale IP|100\.[0-9]+\.[0-9]+\.[0-9]+|C:\\Users\\lauta|K:\\Proyectos|/Users/lautaro|/home/lau|\.secrets|host: 0\.0\.0\.0)' .

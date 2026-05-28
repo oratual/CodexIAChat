@@ -8,7 +8,8 @@ Date: 2026-05-28
 
 - The AgentBus project specification has been imported into `docs/specs/agentbus/AGENTBUS_CODEX_MAC_WINDOWS_LINUX.md`.
 - Documentation entrypoints have been created under `docs/`.
-- The project is ready for Git initialization and GitHub publication as `CodexIAChat`.
+- The project has open-source repository hygiene files for security, contribution, conduct, support, licensing, and release checks.
+- The project is published on GitHub as `CodexIAChat`.
 
 ## What Does Not Exist Yet
 
@@ -18,6 +19,7 @@ Date: 2026-05-28
 - No database schema or migrations exist in this repository.
 - No dashboard, HTTP API, or MCP server exists in this repository.
 - No secrets or deployment configuration exist in this repository.
+- No implementation dependencies exist in this repository.
 
 ## Warning
 

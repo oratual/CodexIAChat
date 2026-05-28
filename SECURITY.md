@@ -15,3 +15,5 @@ Use placeholders such as `<server-linux-ip>` and `<replace-with-worker-password>
 ## Pre-Publish Check
 
 Before publishing or pushing sensitive changes, run a secret scan and inspect hits manually. Current baseline: `python -m detect_secrets scan --all-files .` returned no detected secrets on 2026-05-28 after sanitizing the imported specification.
+
+The repository also runs a GitHub Actions security workflow on pushes to `main` and on pull requests.

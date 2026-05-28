@@ -1,0 +1,26 @@
+name: Feature request
+description: Propose a new capability or documentation improvement.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What should CodexIAChat be able to do?
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Link the relevant docs or architecture decision. Do not include private infrastructure details.
+    validations:
+      required: false
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints
+      description: Security, runtime, compatibility, or deployment constraints.
+    validations:
+      required: false
