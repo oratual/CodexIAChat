@@ -1,0 +1,33 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+id_rsa
+id_ed25519
+
+# AgentBus runtime state
+.agentbus/
+agentbus-data/
+logs/
+*.log
+*.jsonl
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Dependency/build outputs
+node_modules/
+dist/
+build/
+target/
+__pycache__/
+.pytest_cache/
