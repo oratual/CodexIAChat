@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/oratual/CodexIAChat/schemas/task.schema.json",
+  "title": "CodexIAChat AgentBus Task",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "version",
+    "project",
+    "kind",
+    "from",
+    "to",
+    "priority",
+    "summary",
+    "why",
+    "known_context",
+    "context_refs",
+    "allowed_files",
+    "forbidden_scope",
+    "expected_outputs",
+    "reply_to",
+    "ack_required",
+    "created_at",
+    "expires_at",
+    "nonce"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^task_[A-Za-z0-9_.-]+$" },
+    "version": { "const": "1.0" },
+    "project": { "type": "string", "minLength": 1 },
+    "kind": {
+      "enum": ["REQUEST", "REPLY", "HANDOFF", "BLOCKED", "ARTIFACT_READY", "ERROR", "SUMMARY"]
+    },
+    "from": { "type": "string", "minLength": 1 },
+    "to": { "type": "string", "minLength": 1 },
+    "priority": { "enum": ["low", "normal", "high"] },
+    "summary": { "type": "string", "minLength": 1 },
+    "why": { "type": "string", "minLength": 1 },
+    "known_context": { "type": "array", "items": { "type": "string" } },
+    "context_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "allowed_files": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "forbidden_scope": { "type": "array", "items": { "type": "string" } },
+    "expected_outputs": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "reply_to": { "type": "string", "minLength": 1 },
+    "ack_required": { "type": "boolean" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "expires_at": { "type": "string", "format": "date-time" },
+    "nonce": { "type": "string", "minLength": 16 }
+  },
+  "not": {
+    "anyOf": [
+      { "required": ["command"] },
+      { "required": ["executable"] },
+      { "required": ["args"] },
+      { "required": ["extra_args"] },
+      { "required": ["env"] },
+      { "required": ["cwd"] },
+      { "required": ["working_directory"] },
+      { "required": ["sandbox"] },
+      { "required": ["approval_policy"] },
+      { "required": ["network"] }
+    ]
+  }
+}

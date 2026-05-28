@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/oratual/CodexIAChat/schemas/result.schema.json",
+  "title": "CodexIAChat AgentBus Result",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "task_id",
+    "status",
+    "worker_id",
+    "summary",
+    "changed_files",
+    "artifact_refs",
+    "tests_run",
+    "warnings",
+    "errors"
+  ],
+  "properties": {
+    "task_id": { "type": "string", "pattern": "^task_[A-Za-z0-9_.-]+$" },
+    "status": { "enum": ["completed", "blocked", "failed"] },
+    "worker_id": { "type": "string", "minLength": 1 },
+    "lock_fencing_token": { "type": "string", "minLength": 16 },
+    "summary": { "type": "string" },
+    "changed_files": { "type": "array", "items": { "type": "string" } },
+    "artifact_refs": { "type": "array", "items": { "type": "string" } },
+    "tests_run": { "type": "array", "items": { "type": "string" } },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "errors": { "type": "array", "items": { "type": "string" } },
+    "completed_at": { "type": "string", "format": "date-time" }
+  }
+}

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codexiachat"
+version = "0.2.0"
+description = "Secure AgentBus runtime for CodexIAChat"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = [
+  "PyYAML>=6.0.1"
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8.0"
+]
+nats = [
+  "nats-py>=2.9"
+]
+
+[project.scripts]
+codexiachat-agentbus = "codexiachat.agentbus.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,23 @@
+server:
+  bind_host: "127.0.0.1"
+  port: 8765
+  data_dir: ".agentbus/server"
+  max_message_bytes: 262144
+
+agents:
+  - id: "windows-infra"
+    token_env: "AGENTBUS_WINDOWS_INFRA_TOKEN"
+    allowed_projects: ["codexiachat"]
+    can_submit_tasks: true
+
+  - id: "mac-ui"
+    token_env: "AGENTBUS_MAC_UI_TOKEN"
+    allowed_projects: ["codexiachat"]
+    can_submit_tasks: true
+
+projects:
+  - id: "codexiachat"
+    repo_path: "C:/Projects/CodexIAChat"
+    coordination_roots:
+      - "C:/Projects/CodexIAChat/.agentbus"
+    artifact_root: "C:/Projects/CodexIAChat/.agentbus/artifacts"

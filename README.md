@@ -2,13 +2,13 @@
 
 [![Security](https://github.com/oratual/CodexIAChat/actions/workflows/security.yml/badge.svg)](https://github.com/oratual/CodexIAChat/actions/workflows/security.yml)
 
-CodexIAChat is a documentation-first project for building an AgentBus-style coordination system between Codex instances on Windows, macOS, and Linux.
+CodexIAChat is an AgentBus-style coordination system for Codex instances on Windows, macOS, and Linux.
 
 The imported source specification is:
 
 - `docs/specs/agentbus/AGENTBUS_CODEX_MAC_WINDOWS_LINUX.md`
 
-Current status: project documentation has been initialized. No runtime service, worker, database schema, or deployment stack has been implemented yet.
+Current status: Python MVP runtime is implemented for local/private use. It includes an HTTP admission server, a run-once worker, JSON-backed state, static command profiles, path enforcement, replay protection, log redaction, and security tests. NATS remains documented as the wake-up transport target and is not faked by the MVP runtime.
 
 ## Documentation Entrypoints
 
@@ -20,6 +20,23 @@ Current status: project documentation has been initialized. No runtime service, 
 - `docs/api/current_contracts.md`: current message and task/result contract references.
 - `docs/security_model.md`: runtime security model and acceptance criteria.
 - `docs/publication_checklist.md`: public-release confidentiality checklist.
+- `docs/mvp_python_quickstart.md`: safe local MVP quickstart contract.
+- `docs/mvp_python_configuration.md`: sanitized agent, project, server, and worker configuration examples.
+- `docs/nats_private_setup.md`: private NATS setup and subject-permission guidance.
+- `docs/worker_server_usage.md`: expected Python server and worker usage contract.
+- `docs/security_limits.md`: MVP threat boundary, non-goals, and stop conditions.
+- `docs/runtime_scope_rationale.md`: why the local runtime does not replace shared deployment/runtime infrastructure.
+- `schemas/task.schema.json`: task JSON Schema.
+- `schemas/result.schema.json`: result JSON Schema.
+
+## Quickstart
+
+```bash
+python -m pip install -e ".[test]"
+python -m pytest -q
+codexiachat-agentbus validate-server-config --config examples/server.config.yaml
+codexiachat-agentbus validate-worker-config --config examples/worker.config.yaml
+```
 
 ## Open Source
 
@@ -37,3 +54,4 @@ Current status: project documentation has been initialized. No runtime service, 
 - Treat task publication as a privileged remote-execution boundary.
 - Enforce scope, paths, command profiles, identity, and replay protection outside Codex prompts.
 - Keep the project name as `CodexIAChat`.
+- Treat NATS, deployment, dashboard, PostgreSQL, and MCP as future integrations unless their runtime and security controls are explicitly implemented.

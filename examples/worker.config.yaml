@@ -1,0 +1,26 @@
+server:
+  url: "http://127.0.0.1:8765"
+
+worker:
+  agent_id: "mac-ui"
+  project_id: "codexiachat"
+  poll_interval_seconds: 5
+  redact_logs: true
+
+agents:
+  - id: "mac-ui"
+    token_env: "AGENTBUS_MAC_UI_TOKEN"
+    allowed_projects: ["codexiachat"]
+    repo_path: "C:/Projects/CodexIAChat"
+    timeout_seconds: 3600
+    command_profile:
+      - "codex"
+      - "exec"
+      - "Use the agentbus-handoff skill. Process {task_file} and write {result_file}."
+
+projects:
+  - id: "codexiachat"
+    repo_path: "C:/Projects/CodexIAChat"
+    coordination_roots:
+      - "C:/Projects/CodexIAChat/.agentbus"
+    artifact_root: "C:/Projects/CodexIAChat/.agentbus/artifacts"
