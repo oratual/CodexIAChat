@@ -771,6 +771,8 @@ Rules:
 
 La implementación debe abstraer el comando exacto para permitir cambios de versión.
 
+Regla de seguridad: la tarea no puede controlar el ejecutable, argumentos, entorno, directorio de trabajo, sandbox, approval policy ni política de red. Todo eso debe venir de un perfil estático de worker revisado por humanos. La tarea solo puede aportar el `task_id` y las rutas previamente validadas dentro de `.agentbus/inbox/<task_id>/`.
+
 Configurable:
 
 ```yaml
@@ -1333,14 +1335,20 @@ Ejemplo:
 
 ## 26. Seguridad
 
+Modelo completo: `docs/security_model.md`.
+
+Principio base: AgentBus debe tratarse como un sistema de ejecución remota controlada. Publicar una tarea válida puede provocar que un worker ejecute Codex CLI dentro de un checkout local, por lo que la seguridad no puede depender solo de prompts.
+
 ### 26.1. Red
 
 1. NATS no debe exponerse públicamente.
 2. Usar LAN/VPN/Tailscale si hay acceso remoto.
-3. Usar usuario/contraseña o tokens por agente.
+3. Usar credenciales separadas por agente.
 4. Separar credenciales de Mac y Windows.
 5. Rotar credenciales si se filtran.
 6. Logs no deben contener secretos.
+7. Restringir publish/subscribe por subject en NATS para cada agente.
+8. Preferir mTLS si el despliegue sale de una red privada estricta.
 
 ### 26.2. Scope de Codex
 
@@ -1349,6 +1357,8 @@ Ejemplo:
 3. Evitar permisos globales innecesarios.
 4. No entregar a Codex credenciales del servidor si no hacen falta.
 5. No dejar que una tarea modifique configuración del worker salvo tarea administrativa explícita.
+6. Ejecutar cada worker con un usuario de sistema dedicado y permisos de filesystem mínimos.
+7. Verificar archivos modificados y creados después de Codex antes de aceptar el resultado.
 
 ### 26.3. Validación de mensajes
 
@@ -1363,6 +1373,10 @@ Rechazar:
 5. `expected_outputs` fuera del proyecto.
 6. mensajes demasiado grandes.
 7. tipos no permitidos.
+8. mensajes expirados.
+9. task IDs duplicados.
+10. nonces o secuencias repetidas.
+11. identidad del envelope distinta de la identidad del body.
 
 ### 26.4. Rutas
 
@@ -1381,6 +1395,37 @@ Solo permitir rutas bajo:
 2. `/srv/codexiachat/coordination`
 3. `/srv/agentbus/artifacts`
 4. directorios explícitamente configurados.
+
+La validación debe resolver rutas canónicas absolutas y rechazar symlinks que escapen del root permitido, rutas absolutas no configuradas, `..`, expansión de home, expansión de variables de entorno y Windows alternate data streams.
+
+### 26.5. Replays e integridad
+
+Cada envelope de tarea debe incluir:
+
+1. id inmutable asignado por el servidor.
+2. versión de schema.
+3. agente origen.
+4. agente destino.
+5. proyecto.
+6. `created_at`.
+7. `expires_at`.
+8. nonce o secuencia monotónica.
+9. referencia de decisión de autorización.
+10. firma/MAC opcional si el transporte no da garantías suficientes.
+
+El worker debe rechazar tareas expiradas, duplicadas o con secuencia antigua.
+
+### 26.6. Artifacts y logs
+
+1. `.agentbus/`, task packs, resultados, artifacts y logs son sensibles por defecto.
+2. No deben entrar al repo público.
+3. Los logs deben registrar IDs, estados y rutas, no prompts completos ni artifacts completos.
+4. stdout/stderr deben pasar por redacción antes de persistirse.
+5. Debe existir política de retención.
+
+### 26.7. Locks
+
+Los locks deben ser leases server-side con owner, recurso, expiración y fencing token. Un resultado tardío con token antiguo debe rechazarse aunque el worker haya terminado correctamente.
 
 ---
 
@@ -1443,6 +1488,8 @@ No debe ser un chat. Debe ser un panel de operaciones.
 ---
 
 ## 29. API HTTP opcional
+
+Debe estar desactivada por defecto hasta que haya una necesidad concreta. Si se activa, debe enlazar solo en loopback o red privada, autenticar todos los endpoints salvo `/health`, aplicar límites de tamaño/rate limit, evitar CORS permisivo y exponer artifacts por ID opaco, no por ruta de filesystem.
 
 Endpoints recomendados:
 

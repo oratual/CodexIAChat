@@ -34,3 +34,5 @@ The detailed contracts are defined in:
 - No fake worker behavior.
 - No stubbed task execution.
 - No direct dependency on live chat history.
+- No public NATS, task API, artifact API, worker endpoint, or dashboard exposure by default.
+- No task-supplied Codex executable, command arguments, working directory, environment, sandbox, approval mode, or network policy.

@@ -18,6 +18,7 @@ Current status: project documentation has been initialized. No runtime service, 
 - `docs/current_architecture.md`: target architecture summary.
 - `docs/open_questions.md`: unresolved questions that must be answered before implementation.
 - `docs/api/current_contracts.md`: current message and task/result contract references.
+- `docs/security_model.md`: runtime security model and acceptance criteria.
 - `docs/publication_checklist.md`: public-release confidentiality checklist.
 
 ## Open Source
@@ -33,4 +34,6 @@ Current status: project documentation has been initialized. No runtime service, 
 - Do not create stubs, mock services, mock messages, or fake data.
 - If a dependency, secret, server, agent, or runtime is missing, document the blocker with cause, impact, and unblock path.
 - Prefer the imported specification as the source of truth until a newer project decision supersedes it.
+- Treat task publication as a privileged remote-execution boundary.
+- Enforce scope, paths, command profiles, identity, and replay protection outside Codex prompts.
 - Keep the project name as `CodexIAChat`.

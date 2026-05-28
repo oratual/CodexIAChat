@@ -31,4 +31,4 @@ jobs:
       - name: Search for obvious private markers
         shell: bash
         run: |
-          ! grep -RInE --exclude='security.yml' '(gho_|github_pat|sk-[A-Za-z0-9]|AKIA[0-9A-Z]{16}|BEGIN .*PRIVATE|Tailscale IP|100\.[0-9]+\.[0-9]+\.[0-9]+|C:\\Users\\lauta|K:\\Proyectos|/Users/lautaro|/home/lau|\.secrets|host: 0\.0\.0\.0)' .
+          ! grep -RInE --exclude='security.yml' '(gho_|github_pat|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|BEGIN .*PRIVATE|Tailscale IP|100\.[0-9]+\.[0-9]+\.[0-9]+|C:\\Users\\lauta|K:\\Proyectos|/Users/lautaro|/home/lau|\.secrets|host: 0\.0\.0\.0)' .

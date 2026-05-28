@@ -13,6 +13,7 @@ This document is the imported project creation specification. It defines the Age
 - `docs/current_architecture.md`
 - `docs/open_questions.md`
 - `docs/api/current_contracts.md`
+- `docs/security_model.md`
 - `docs/publication_checklist.md`
 
 ## Reading Order
@@ -21,6 +22,7 @@ This document is the imported project creation specification. It defines the Age
 2. Read `docs/current_decisions.md` before making architecture or implementation changes.
 3. Read `docs/current_architecture.md` before creating services, workers, storage, or deployment scripts.
 4. Read `docs/api/current_contracts.md` before changing task, result, or event formats.
-5. Read `docs/open_questions.md` before committing to implementation details.
-6. Read `docs/publication_checklist.md` before pushing public changes.
-7. Use `docs/specs/agentbus/AGENTBUS_CODEX_MAC_WINDOWS_LINUX.md` as the detailed source document.
+5. Read `docs/security_model.md` before implementing NATS, workers, Codex CLI execution, HTTP APIs, MCP tools, logs, artifacts, or locks.
+6. Read `docs/open_questions.md` before committing to implementation details.
+7. Read `docs/publication_checklist.md` before pushing public changes.
+8. Use `docs/specs/agentbus/AGENTBUS_CODEX_MAC_WINDOWS_LINUX.md` as the detailed source document.

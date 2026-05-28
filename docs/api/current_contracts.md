@@ -26,13 +26,19 @@ The task JSON contract is defined in section 9 of the source specification.
 Any implementation must preserve:
 
 - explicit task identity;
+- immutable server-assigned envelope identity;
 - source and target agent identity;
 - project identity;
+- schema version;
+- creation and expiry times;
+- replay protection through a nonce or monotonic sequence;
 - objective and reason;
 - allowed files and forbidden scope;
 - expected outputs;
 - result path;
 - timeout and retry constraints.
+
+Workers must reject unknown agents, unknown projects, expired tasks, duplicate task IDs, old nonces/sequences, invalid schema versions, and task bodies whose identity conflicts with the authorized envelope.
 
 ## Result Contract
 
@@ -42,6 +48,8 @@ Any implementation must preserve:
 
 - task identity;
 - status;
+- worker identity;
+- lock fencing token when a lock protected the task;
 - summary;
 - changed files;
 - created artifacts;
@@ -49,6 +57,8 @@ Any implementation must preserve:
 - warnings;
 - errors;
 - follow-up requests when needed.
+
+Result acceptance must re-check changed files and artifacts against the task allowlist and expected outputs before reporting success.
 
 ## Change Rule
 

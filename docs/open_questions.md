@@ -12,11 +12,16 @@ These must be answered before implementing runtime code.
 8. What retention policy applies to task packs, artifacts, results, and logs?
 9. What health checks define a working worker, server, and bus?
 10. Which acceptance tests must pass before the first runtime deployment?
+11. Will NATS use mTLS from the first release, or start with per-agent credentials plus subject ACLs on a private network?
+12. Which static Codex command profiles are allowed for each worker?
+13. What OS user and filesystem permissions will each worker run with?
+14. What replay-protection store will track consumed task IDs, nonces, or sequences?
+15. What redaction rules apply before stdout, stderr, task packs, results, and artifacts are persisted?
 
 ## Current Blocker For Implementation
 
-Cause: runtime ownership, deployment stack, NATS location, and Codex CLI command contract have not been verified.
+Cause: runtime ownership, deployment stack, NATS location, security controls, and Codex CLI command contract have not been verified.
 
-Impact: implementing services now would require assumptions that could create throwaway code or incorrect integration boundaries.
+Impact: implementing services now would require assumptions that could create throwaway code, incorrect integration boundaries, or an unsafe remote-execution surface.
 
-Unblock path: confirm runtime host, stack ownership, NATS deployment plan, worker paths, and Codex CLI execution contract.
+Unblock path: confirm runtime host, stack ownership, NATS deployment plan, worker paths, identity/authorization model, replay protection, path enforcement, static command profiles, and Codex CLI execution contract.
